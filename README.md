@@ -2,11 +2,11 @@
 
 ## Overview
 
-This repository contains the Terraform/AWS infrastructure setup for deploying a phishing server with everything setup ready to start a red team operation/phishing engagement. 
+This repository contains the Terraform/AWS infrastructure setup for deploying a phishing server with everything setup and ready to start a red team operation/phishing engagement. 
 Most of the setup is hands off though there are some manual tasks like running a couple commands and updating DNS records.
-I had the idea to automate this while going over [TCM Practical Phishing Course](https://academy.tcm-sec.com/p/practical-phishing-campaigns). Alot of manual work to just setup a couple tools and config was required so I decided to put this repo together to save a bunch of time while in my Terraform/AWS war(study) path.
-For a proper engagement you should add a reverse proxy in front of the phishing sever to hide traffic more thoroughly.
-[Checkout the write up here for this repo!](https://cyberchronicles.org/posts/6/)
+I had the idea to automate this while going over [TCM Practical Phishing Course](https://academy.tcm-sec.com/p/practical-phishing-campaigns). A lot of manual work to just setup a couple tools and config was required so I decided to put this repo together to save a bunch of time while in my Terraform/AWS war(study) path.
+For a proper engagement you should add a reverse proxy in front of the phishing server to hide traffic more thoroughly.
+Check out the write up [here for this repo!](https://cyberchronicles.org/posts/6/)
 
 ## Architecture
 ![architecture diagram](/architecture.png)
@@ -17,8 +17,8 @@ Phishing Email → URL/Domain → Public EC2 (Apache, GoPhish & Evilginx)
 The setup provides:
 - **EC2 Server**: Sets up an EC2 with terraform.
 - **Apache hosted**: Uses Apache with TLS and strong redirect rules to deter bots and crawlers.
-- **GoPhish**: GoPhish is installed and auto setup in a tmux session(GoPhishSession1) with basic hardening done to config.json and config.go.
-- **Evilginx**: Evilginx is installed, configured and reay to use in a tmux session) with basic config like domain, IP, blacklist unauth and unauth_url already set.
+- **GoPhish**: GoPhish is installed and auto-setup in a tmux session(GoPhishSession1) with basic hardening done to config.json and config.go.
+- **Evilginx**: Evilginx is installed, configured and ready to use in a tmux session(EvilginxSession1) with basic config like domain, IP, blacklist unauth and unauth_url already set.
   
 ## Prerequisites
 
@@ -36,12 +36,12 @@ Before deploying this infrastructure ensure you have:
 ### The Setup
 
 ```bash
-#First, make sure you setup Mailgun or whichever mail provider you intend to use.
-#Now you need to configure your AWS keys that you would of generated from your AWS IAM user, (ensure awscli is installed): 
+#First, make sure you set up Mailgun or your preferred mail provider you intend to use.
+#Now you need to configure your AWS keys that you would have generated from your AWS IAM user, (ensure awscli is installed): 
 aws configure
 
 #Update redirect if required before building terraform, defaults to office.com - Line 130 - index.html.
-#Ensure these Inbound ports must be open on the EC2: 22, 53-tcp&udp, 80, 443, 3333
+#Ensure the following inbound ports are open on the EC2: 22, 53-tcp&udp, 80, 443, 3333
 terraform fmt
 terraform init
 terraform plan
@@ -50,7 +50,7 @@ terraform apply
 #When prompted, enter your domain name like, example.com
 #After setup completes, grab the public IP from the output and update the DNS records for your domain with an A record that points to the new Ec2 IP (DNS only).
 
-#Copy over the config.sh script from your host to the EC2 to setup to auto setup Apache, TLS, GoPhish and Evilginx on the Ec2:
+#Copy over the config.sh script from your host to the EC2, to auto-setup Apache, TLS, GoPhish and Evilginx on the Ec2:
 scp -i ubuntu-SSH-Key-######.pem config.sh ubuntu@<YourEC2IP>:/home/ubuntu/
 #SSH into the EC2
 ssh -i ubuntu-SSH-Key-######.pem ubuntu@<YourEC2IP>
@@ -60,9 +60,9 @@ sudo /home/ubuntu/config.sh <DOMAIN> <TLD> <EC2IP>
 #If you are seeing issues about a hostname then run: HOSTNAME=$(hostname) && echo "127.0.1.1 $HOSTNAME" | sudo tee -a /e> /dev/null
 #Any other issues try reloading Apache: systemctl reload apache2
 
-#If all went well, you can nav to GoPhish admin page to setup a profile, but first grab the password:
+#If all went well, you can navigate to GoPhish admin page to setup a profile, but first grab the password:
 tmux attach-session -t GoPhishSession1
-#on your kali/windows host, nav to https://<YourEC2IP>:3333/ (Make sure its your EC2 IP not your domain name) to change your password for GoPhish (make note of it as you will not be given another chance)
+#on your kali/windows host, navigate to https://<YourEC2IP>:3333/ (Make sure it's your EC2 IP not your domain name) to change your password for GoPhish (make note of it as you will not be given another chance)
 #Once the password has been changed you can update your profile/campaign.
 
 #Now copy over the webpages from your host to the EC2, and then move them to the web root folder. Ensure you are using your pem file name and your EC2 Public IP.
@@ -74,11 +74,11 @@ ssh -i ubuntu-SSH-Key-######.pem ubuntu@<YourEC2IP> 'sudo mv /home/ubuntu/index.
 #Once done, setup the custom Phishlet in Evilginx
 tmux attach-session -t EvilginxSession1
 #Make sure to create an A record for the subdomains used by the Phishlet
-#Confirm URL works and is logging creds, then Start the Campaign!
+#Confirm the URL works and is logging credentials, then Start the Campaign!
 	#Download GoPhish results → Dashboard → Review Campaign → Export CSV
-	#Export sessions from Evilginx with sessions and copy to a spreadsheet.
+	#Export session data from Evilginx and copy it to a spreadsheet.
 	
-#To destroy run terraform destroy and then manually remove the DNS records.
+#To destroy, run terraform destroy and then manually remove the DNS records.
 ```
 
 ## Conclusion
