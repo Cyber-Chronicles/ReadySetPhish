@@ -64,7 +64,7 @@ sudo /home/ubuntu/config.sh <DOMAIN> <TLD> <EC2IP>
 
 #If all went well, you can navigate to GoPhish admin page to setup a profile, but first grab the password:
 tmux attach-session -t GoPhishSession1
-#on your kali/windows host, navigate to https://<YourEC2IP>:3333/ (Make sure it's your EC2 IP not your domain name) to change your password for GoPhish (make note of it as you will not be given another chance)
+#Minimize your tmux session or on your kali/windows host, navigate to https://<YourEC2IP>:3333/ (Make sure it's your EC2 IP not your domain name) to change your password for GoPhish (make note of it as you will not be given another chance)
 #Once the password has been changed you can update your profile/campaign.
 
 #Now copy over the webpages from your host to the EC2, and then move them to the web root folder. Ensure you are using your pem file name and your EC2 Public IP.
