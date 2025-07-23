@@ -30,8 +30,7 @@ Before deploying this infrastructure ensure you have:
 - ✅ **Linux Environment**: Linux distro for deployment (I prefer Kali)
 - ✅ **Terraform+AWS**: Terraform and awscli installed
 - ✅ **Redirects**: The script auto sets redirects to office.com or microsoft.com, if you want to edit these, ensure it's done before building terraform.
-                     - index.html - line 130
-                     - config.sh - lines, 141,194,201,211,329,250,367,385,402,420,459,463,595,599,603
+                     - index.html - line 130 && config.sh - lines, 141,194,201,211,329,250,367,385,402,420,459,463,595,599,603
 ---
 
 ### The Setup
