@@ -49,6 +49,8 @@ terraform validate
 terraform apply
 #When prompted, enter your domain name like, example.com
 #After setup completes, grab the public IP from the output and update the DNS records for your domain with an A record that points to the new Ec2 IP (DNS only).
+#Confirm DNS records have been updated:
+dig +short <yourdomain.com>
 
 #Copy over the config.sh script from your host to the EC2, to auto-setup Apache, TLS, GoPhish and Evilginx on the Ec2:
 scp -i ubuntu-SSH-Key-######.pem config.sh ubuntu@<YourEC2IP>:/home/ubuntu/
