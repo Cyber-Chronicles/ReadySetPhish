@@ -4,7 +4,7 @@
 
 This repository contains the Terraform/AWS infrastructure setup for deploying a phishing server with everything setup ready to start a red team operation/phishing engagement. 
 Most of the setup is hands off though there are some manual tasks like running a couple commands and updating DNS records.
-I had the idea to automate this while going over [TCM Practical Phishing Course](https://academy.tcm-sec.com/p/practical-phishing-campaigns). Alot of manual work to just setup a couple tools and config was required so I decicded to put this repo together to save a bunch of time while in my Terraform/AWS war(study) path.
+I had the idea to automate this while going over [TCM Practical Phishing Course](https://academy.tcm-sec.com/p/practical-phishing-campaigns). Alot of manual work to just setup a couple tools and config was required so I decided to put this repo together to save a bunch of time while in my Terraform/AWS war(study) path.
 For a proper engagement you should add a reverse proxy in front of the phishing sever to hide traffic more thoroughly.
 [Checkout the write up here!](https://cyberchronicles.org/posts/6/)
 
