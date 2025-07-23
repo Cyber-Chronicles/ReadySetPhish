@@ -1,4 +1,4 @@
-# # Ready, Set, Phish! {WiP}
+# # Ready, Set, Phish!
 
 ## Overview
 
