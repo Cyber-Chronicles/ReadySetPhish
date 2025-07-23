@@ -16,9 +16,9 @@ Phishing Email → URL/Domain → Public EC2 (Apache, GoPhish & Evilginx)
 
 The setup provides:
 - **EC2 Server**: Sets up an EC2 with terraform.
-- **Apache hosted**: Uses Apache with TLS and strong redirect rules to deter bots and crawlers
-- **GoPhish**: GoPhish is installed and auto setup in a tmux session, GoPhishSession1
-- **Evilginx**: Evilginx is installed, configured and reay to use in a tmux session, EvilginxSession1.
+- **Apache hosted**: Uses Apache with TLS and strong redirect rules to deter bots and crawlers.
+- **GoPhish**: GoPhish is installed and auto setup in a tmux session(GoPhishSession1) with basic hardening done to config.json and config.go.
+- **Evilginx**: Evilginx is installed, configured and reay to use in a tmux session) with basic config like domain, IP, blacklist unauth and unauth_url already set.
   
 ## Prerequisites
 
@@ -70,9 +70,9 @@ scp -i ubuntu-SSH-Key-######.pem index.html ubuntu@<YourEC2IP>:/home/ubuntu/
 scp -i ubuntu-SSH-Key-######pem captcha.html ubuntu@<YourEC2IP>:/home/ubuntu/
 ssh -i ubuntu-SSH-Key-######.pem ubuntu@<YourEC2IP> 'sudo mv /home/ubuntu/index.html /var/www/<yourdomain>/ && sudo mv /home/ubuntu/captcha.html /var/www/<yourdomain>/'
 
-#Next setup the custom Email Template in GoPhish
+#Next, setup the custom Email Template in GoPhish
+#Once done, setup the custom Phishlet in Evilginx
 tmux attach-session -t EvilginxSession1
-#Setup the custom Phishlet in Evilginx
 #Make sure to create an A record for the subdomains used by the Phishlet
 #Confirm URL works and is logging creds, then Start the Campaign!
 	#Download GoPhish results → Dashboard → Review Campaign → Export CSV
