@@ -83,6 +83,5 @@ tmux attach-session -t EvilginxSession1
 
 ## Conclusion
 - I plan to do some more studies in making custom email templates for GoPhish, and creating custom phishlets in Evilginx. After that I am looking forward to taking the [Evilginx Mastery Course](https://academy.breakdev.org/evilginx-mastery)
-- If you have not got an AWS account handy or a spare domain to use, it could take about 30 minutes to set this all up.
 - If you already have an AWS account ready, a domain and your email service already setup, the time to setup the infrastructure completely with this repo is 10 ~ 15 minutes.
 - Average monthly cost to keep this EC2 up and running $15.
