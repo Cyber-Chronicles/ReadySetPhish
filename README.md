@@ -18,7 +18,8 @@ The setup provides:
 - **EC2 Server**: Sets up an EC2 with terraform.
 - **Apache hosted**: Uses Apache with TLS and strong redirect rules to deter bots and crawlers.
 - **GoPhish**: GoPhish is installed and auto-setup in a tmux session(GoPhishSession1) with basic hardening done to config.json and config.go.
-- **Evilginx**: Evilginx is installed, configured and ready to use in a tmux session(EvilginxSession1) with basic config like domain, IP, blacklist unauth and unauth_url already set.
+- **Evilginx**: Evilginx is installed, configured and ready to use in a tmux session(EvilginxSession1) with basic config like domain, IP, blacklist and unauth_url already set.
+- **Captcha Page**: Uses a mock Cloudflare captcha page on the root domain.
   
 ## Prerequisites
 
