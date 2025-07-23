@@ -19,7 +19,6 @@ The setup provides:
 - **Apache hosted**: Uses Apache with TLS and strong redirect rules to deter bots and crawlers
 - **GoPhish**: GoPhish is installed and auto setup in a tmux session, GoPhishSession1
 - **Evilginx**: Evilginx is installed, configured and reay to use in a tmux session, EvilginxSession1.
-- **Tooling**: Will auto install GoPhish and Evilginx and complete the setup as much as possible
   
 ## Prerequisites
 
