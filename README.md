@@ -67,7 +67,7 @@ tmux attach-session -t GoPhishSession1
 #Minimize your tmux session or on your kali/windows host, navigate to https://<YourEC2IP>:3333/ (Make sure it's your EC2 IP not your domain name) to change your password for GoPhish (make note of it as you will not be given another chance)
 #Once the password has been changed you can update your profile/campaign.
 
-#Now copy over the webpages from your host to the EC2, and then move them to the web root folder. Ensure you are using your pem file name and your EC2 Public IP.
+#Optional step, feel free to use your own setup here: Copy over the captcha and index webpages from your host to the EC2, and then move them to the web root folder. Ensure you are using your pem file name and your EC2 Public IP.
 scp -i ubuntu-SSH-Key-######.pem index.html ubuntu@<YourEC2IP>:/home/ubuntu/
 scp -i ubuntu-SSH-Key-######pem captcha.html ubuntu@<YourEC2IP>:/home/ubuntu/
 ssh -i ubuntu-SSH-Key-######.pem ubuntu@<YourEC2IP> 'sudo mv /home/ubuntu/index.html /var/www/<yourdomain>/ && sudo mv /home/ubuntu/captcha.html /var/www/<yourdomain>/'
