@@ -58,7 +58,7 @@ scp -i ubuntu-SSH-Key-######.pem config.sh ubuntu@<YourEC2IP>:/home/ubuntu/
 ssh -i ubuntu-SSH-Key-######.pem ubuntu@<YourEC2IP>
 cd /home/ubuntu/ && chmod +x /home/ubuntu/config.sh
 sudo /home/ubuntu/config.sh <DOMAIN> <TLD> <EC2IP>
-#Example for domain.com: sudo ./config.sh domain com 32.11.11.32
+#Example for domain.com with the public IP of 32.11.11.32: sudo ./config.sh domain com 32.11.11.32
 #If you are seeing issues about a hostname then run: HOSTNAME=$(hostname) && echo "127.0.1.1 $HOSTNAME" | sudo tee -a /e> /dev/null
 #Any other issues try reloading Apache: systemctl reload apache2
 
