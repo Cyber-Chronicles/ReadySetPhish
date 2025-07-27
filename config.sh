@@ -2,6 +2,11 @@
 MYDOMAIN="$1"
 MYFQDN="$1.$2"
 EC2IP="$3"
+PURPLE='\033[0;35m'
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
 
 cat <<'EOF' >server-setup.sh
 #!/bin/bash
@@ -47,6 +52,8 @@ sudo sed -i "s/ServerTokens OS/ServerTokens Full/g" /etc/apache2/conf-available/
 sudo systemctl reload apache2
 sleep 30
 EOF
+
+printf "${GREEN}[-] Apache setup complete!${NC}\n"
 
 chmod +x server-setup.sh
 ./server-setup.sh
@@ -126,6 +133,8 @@ echo "Killing Script"
 exit 0
 EOF
 
+printf "${GREEN}[-] TLS setup complete!${NC}\n"
+
 chmod +x domain-setup.sh
 ./domain-setup.sh "$MYDOMAIN" "$2"
 
@@ -187,6 +196,7 @@ Define REDIR_TARGET https://www.microsoft.com
 EOF
 
 sudo systemctl reload apache2
+printf "${GREEN}[-] Apache VHOSTS setup complete!${NC}\n"
 sleep 60
 
 # Updated redirect rules
@@ -602,6 +612,7 @@ RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]]
 RewriteCond                             %{HTTP_USER_AGENT}                      ^Slackbot-LinkExpanding.*$
 RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
 EOF
+
 comment_duplicate_vhosts() {
     local CONF_FILE="/etc/apache2/sites-available/${MYDOMAIN}-le-ssl.conf"
     local TMP_FILE="${CONF_FILE}.tmp"
@@ -641,9 +652,9 @@ comment_duplicate_vhosts() {
 comment_duplicate_vhosts
 sleep 60
 systemctl reload apache2
-echo "[+] Ignore the above error:Job for apache2.service failed:, apache should be fine, if in doubt, systemctl reload apache2"
+printf "${RED}[+] Ignore the above error:Job for apache2.service failed:, apache should be fine, if in doubt, ${NC}systemctl reload apache2 \n"
 # Domain setup with TLS cert COMPLETE
-echo "[+] Setting up GoPhish"
+printf "${GREEN}[+] Setting up GoPhish${NC}\n"
 # Continued setup - Gophish
 apt install -y golang git
 
@@ -676,10 +687,10 @@ sed -i '13s/example\.key/privkey.pem/' /home/ubuntu/gophish/config.json
 
 # Modify config.go
 sed -i '46s/const ServerName = "gophish"/const ServerName = "IGNORE"/' /home/ubuntu/gophish/config/config.go
-echo "[-] GoPhish setup complete!"
+printf "${GREEN}[-] GoPhish setup complete!${NC}\n"
 
 #GoPhish setup COMPLETE - ready to start up!
-echo "[+] Setting up Evilginx"
+printf "${GREEN}[+] Setting up Evilginx${NC}\n"
 
 # Continued setup - evilginx
 # Clone and build Evilginx as ubuntu user
@@ -728,8 +739,8 @@ sleep 2
 EOF
 
 #Evilgix setup COMPLETE - Ready to use
-echo "[-] Evilginx setup complete!"
-echo "Join the session with: tmux attach-session -t EvilginxSession1"
+printf "${GREEN}[-] Evilginx setup complete!${NC}\n"
+printf "${PURPLE}Join the session with: tmux attach-session -t EvilginxSession1${NC}\n"
 
 sudo -u ubuntu bash <<EOF
 cd /home/ubuntu/gophish
@@ -738,15 +749,12 @@ tmux send-keys -t GoPhishSession1 "cd /home/ubuntu/gophish && sudo /home/ubuntu/
 sleep 3
 EOF
 
-echo "[-] GoPhish setup complete!"
-echo "Join the session with: tmux attach-session -t GoPhishSession1"
+printf "${GREEN}[-] GoPhish setup complete!${NC}\n"
+printf "${PURPLE}Join the session with: tmux attach-session -t GoPhishSession1${NC}\n"
 
 apachectl -D DUMP_MODULES | grep ssl
-echo "Output from above should say: ssl_module (shared), if not run: sudo systemctl reload apache2"
+printf "${RED}Output from above should say: ssl_module (shared), if not run: sudo systemctl reload apache2${NC} \n"
 
-echo "Setup Complete! Everything is ready to use! Enjoy!"
-echo "FQDN: "$MYFQDN
-echo "Domain: "$MYDOMAIN
-echo "EC2IP: "$EC2IP
+printf "${GREEN}Setup Complete! Everything is ready to use! Enjoy!${NC}"
 
 sudo rm -rf /home/ubuntu/config.sh /home/ubuntu/domain-setup.sh /home/ubuntu/server-setup.sh /home/ubuntu/go1.22.2.linux-amd64.tar.gz
