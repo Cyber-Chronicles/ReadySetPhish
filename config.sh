@@ -53,7 +53,7 @@ sudo systemctl reload apache2
 sleep 30
 EOF
 
-printf "${GREEN}[-] Apache setup complete!${NC}\n"
+printf "\n${GREEN}[-] Apache setup underway!${NC}\n\n"
 
 chmod +x server-setup.sh
 ./server-setup.sh
@@ -133,7 +133,7 @@ echo "Killing Script"
 exit 0
 EOF
 
-printf "${GREEN}[-] TLS setup complete!${NC}\n"
+printf "\n\n${GREEN}[-] TLS setup underway!${NC}\n\n"
 
 chmod +x domain-setup.sh
 ./domain-setup.sh "$MYDOMAIN" "$2"
@@ -196,7 +196,7 @@ Define REDIR_TARGET https://www.microsoft.com
 EOF
 
 sudo systemctl reload apache2
-printf "${GREEN}[-] Apache VHOSTS setup complete!${NC}\n"
+printf "\n\n${GREEN}[-] Apache VHOSTS setup complete!${NC}\n\n"
 sleep 60
 
 # Updated redirect rules
@@ -652,9 +652,9 @@ comment_duplicate_vhosts() {
 comment_duplicate_vhosts
 sleep 60
 systemctl reload apache2
-printf "${RED}[+] Ignore the above error:Job for apache2.service failed:, apache should be fine, if in doubt, ${NC}systemctl reload apache2 \n"
+printf "\n\n${RED}[+] Ignore the above error:Job for apache2.service failed:, apache should be fine, if in doubt, ${NC}systemctl reload apache2 \n"
 # Domain setup with TLS cert COMPLETE
-printf "${GREEN}[+] Setting up GoPhish${NC}\n"
+printf "\n\n${GREEN}[+] Setting up GoPhish${NC}\n\n"
 # Continued setup - Gophish
 apt install -y golang git
 
@@ -687,10 +687,10 @@ sed -i '13s/example\.key/privkey.pem/' /home/ubuntu/gophish/config.json
 
 # Modify config.go
 sed -i '46s/const ServerName = "gophish"/const ServerName = "IGNORE"/' /home/ubuntu/gophish/config/config.go
-printf "${GREEN}[-] GoPhish setup complete!${NC}\n"
+printf "\n\n${GREEN}[-] GoPhish setup complete!${NC}\n\n"
 
 #GoPhish setup COMPLETE - ready to start up!
-printf "${GREEN}[+] Setting up Evilginx${NC}\n"
+printf "${GREEN}[+] Setting up Evilginx${NC}\n\n"
 
 # Continued setup - evilginx
 # Clone and build Evilginx as ubuntu user
@@ -739,7 +739,7 @@ sleep 2
 EOF
 
 #Evilgix setup COMPLETE - Ready to use
-printf "${GREEN}[-] Evilginx setup complete!${NC}\n"
+printf "\n\n${GREEN}[-] Evilginx setup complete!${NC}\n"
 printf "${PURPLE}Join the session with: tmux attach-session -t EvilginxSession1${NC}\n"
 
 sudo -u ubuntu bash <<EOF
@@ -749,12 +749,12 @@ tmux send-keys -t GoPhishSession1 "cd /home/ubuntu/gophish && sudo /home/ubuntu/
 sleep 3
 EOF
 
-printf "${GREEN}[-] GoPhish setup complete!${NC}\n"
-printf "${PURPLE}Join the session with: tmux attach-session -t GoPhishSession1${NC}\n"
+printf "\n\n${GREEN}[-] GoPhish setup complete!${NC}\n"
+printf "${PURPLE}Join the session with: tmux attach-session -t GoPhishSession1${NC}\n\n"
 
 apachectl -D DUMP_MODULES | grep ssl
 printf "${RED}Output from above should say: ssl_module (shared), if not run: sudo systemctl reload apache2${NC} \n"
 
-printf "${GREEN}Setup Complete! Everything is ready to use! Enjoy!${NC}"
+printf "\n\n${GREEN}Setup Complete! Everything is ready to use! Enjoy!${NC}\n"
 
 sudo rm -rf /home/ubuntu/config.sh /home/ubuntu/domain-setup.sh /home/ubuntu/server-setup.sh /home/ubuntu/go1.22.2.linux-amd64.tar.gz
