@@ -77,6 +77,7 @@ ssh -i ubuntu-SSH-Key-######.pem ubuntu@<YourEC2IP> 'sudo mv /home/ubuntu/index.
 #Once done, setup the custom Phishlet in Evilginx
 tmux attach-session -t EvilginxSession1
 #Make sure to create an A record for the subdomains used by the Phishlet
+#Now when ready to start, stop Apache so Evilginx can run: sudo systemctl stop apache2
 #Confirm the URL works and is logging credentials, then Start the Campaign!
 	#Download GoPhish results → Dashboard → Review Campaign → Export CSV
 	#Export session data from Evilginx and copy it to a spreadsheet.
