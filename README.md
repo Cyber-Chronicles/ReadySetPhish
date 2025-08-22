@@ -33,7 +33,7 @@ Before deploying this infrastructure ensure you have:
                      - config.sh - lines, 150,204,211,221,339,360,377,395,412,430,469,473,605,613.
 ---
 
-## What Else
+## What else is included?
 - GoPhish has had some slight changes for opsec:
 ```bash
 # Removes GoPhish HTTP Header
