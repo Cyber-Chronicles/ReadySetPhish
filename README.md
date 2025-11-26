@@ -63,8 +63,9 @@ blacklist log off
 ### The Setup
 
 ```bash
+#!Ensure you already have a domain purchased and have an AWS account
 #First, make sure you set up Mailgun or your preferred mail provider you intend to use.
-#Now you need to configure your AWS keys that you would have generated from your AWS IAM user, (ensure awscli is installed): 
+#Now you need to configure your AWS keys that you would have generated from the AWS IAM page earlier (IAM > Quick Links > My Security Credentials > Create Access Key): 
 aws configure
 
 #Update redirect if required before building terraform, defaults to office.com - Line 130 - index.html.
